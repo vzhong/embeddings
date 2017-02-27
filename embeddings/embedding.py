@@ -1,8 +1,8 @@
 import sqlite3
 from os import path, makedirs, environ
-import ujson as json
 import requests
 import logging
+from array import array
 
 
 class Embedding:
@@ -83,7 +83,7 @@ class Embedding:
             makedirs(path.dirname(fname))
         db = sqlite3.connect(fname)
         c = db.cursor()
-        c.execute('create table if not exists embeddings(word text primary key, emb text)')
+        c.execute('create table if not exists embeddings(word text primary key, emb blob)')
         db.commit()
         return db
 
@@ -107,8 +107,9 @@ class Embedding:
 
         """
         c = self.db.cursor()
+        binarized = [(word, array('f', emb).tobytes()) for word, emb in batch]
         try:
-            c.executemany("insert into embeddings values (?, ?)", batch)
+            c.executemany("insert into embeddings values (?, ?)", binarized)
             self.db.commit()
         except Exception as e:
             print('insert failed\n{}'.format([w for w, e in batch]))
@@ -149,4 +150,4 @@ class Embedding:
         """
         c = self.db.cursor()
         q = c.execute('select emb from embeddings where word = :word', {'word': w}).fetchone()
-        return json.loads(q[0]) if q else None
+        return array('f', q[0]).tolist() if q else None

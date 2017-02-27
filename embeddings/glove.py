@@ -1,5 +1,4 @@
 import random
-import ujson as json
 from collections import namedtuple
 from os import path
 
@@ -78,7 +77,7 @@ class GloveEmbedding(Embedding):
                 if word in seen:
                     continue
                 seen.add(word)
-                batch.append((word, json.dumps(vec)))
+                batch.append((word, vec))
                 if len(batch) == batch_size:
                     self.insert_batch(batch)
                     batch.clear()
