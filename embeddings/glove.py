@@ -17,11 +17,11 @@ class GloveEmbedding(Embedding):
     GloveSetting = namedtuple('GloveSetting', ['url', 'd_embs', 'size', 'description'])
     settings = {
         'common_crawl_48': GloveSetting('http://nlp.stanford.edu/data/glove.42B.300d.zip',
-                                        [300], None, '48B token common crawl'),
+                                        [300], 1917494, '48B token common crawl'),
         'common_crawl_840': GloveSetting('http://nlp.stanford.edu/data/glove.840B.300d.zip',
                                          [300], 2195895, '840B token common crawl'),
         'twitter': GloveSetting('http://nlp.stanford.edu/data/glove.twitter.27B.zip',
-                                [25, 50, 100, 200], None, '27B token twitter'),
+                                [25, 50, 100, 200], 1193514, '27B token twitter'),
         'wikipedia_gigaword': GloveSetting('http://nlp.stanford.edu/data/glove.6B.zip',
                                            [50, 100, 200, 300], 400000, '6B token wikipedia 2014 + gigaword 5'),
     }
