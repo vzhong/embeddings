@@ -4,11 +4,29 @@ This python package contains utilities to download and make available pretrained
 
 Embeddings are stored in the `$EMBEDDINGS_ROOT` directory in a SQLite 3 database for fast retrieval directory in a SQLite 3 database for minimal load time and fast retrieval.
 
+Instead of loading a large file to query for embeddings, `embeddings` is fast to query:
+
+```python
+In [1]: %timeit GloveEmbedding('common_crawl_840', d_emb=300)
+100 loops, best of 3: 12.7 ms per loop
+
+In [2]: %timeit GloveEmbedding('common_crawl_840', d_emb=300).emb('canada')
+100 loops, best of 3: 12.9 ms per loop
+
+In [3]: g = GloveEmbedding('common_crawl_840', d_emb=300)
+
+In [4]: %timeit -n1 g.emb('canada')
+1 loop, best of 3: 38.2 µs per loop
+```
+
 
 ## Usage
 
 ```python
-from embeddings import GloVe
+from embeddings import GloveEmbedding
 
-emb = GloVe()
+emb = GloveEmbedding('common_crawl_840', d_emb=300, show_progress=True)
+for w in ['canada', 'vancouver', 'toronto']:
+    print('embedding {}'.format(w))
+    print(emb.emb(w))
 ```
