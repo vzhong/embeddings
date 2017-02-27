@@ -2,9 +2,9 @@
 
 This python package contains utilities to download and make available pretrained word embeddings.
 
-Embeddings are stored in the `$EMBEDDINGS_ROOT` directory in a SQLite 3 database for fast retrieval directory in a SQLite 3 database for minimal load time and fast retrieval.
+Embeddings are stored in the `$EMBEDDINGS_ROOT` directory (defaults to `~/.embeddings`) in a SQLite 3 database for minimal load time and fast retrieval.
 
-Instead of loading a large file to query for embeddings, `embeddings` is fast to query:
+Instead of loading a large file to query for embeddings, `embeddings` is fast:
 
 ```python
 In [1]: %timeit GloveEmbedding('common_crawl_840', d_emb=300)
@@ -30,3 +30,7 @@ for w in ['canada', 'vancouver', 'toronto']:
     print('embedding {}'.format(w))
     print(emb.emb(w))
 ```
+
+## Contribution
+
+Pull requests welcome!
