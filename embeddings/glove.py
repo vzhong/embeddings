@@ -9,7 +9,6 @@ from embeddings.embedding import Embedding
 
 class GloveEmbedding(Embedding):
     """
-    Vocab object with initialization from GloVe by Pennington et al.
     Reference: http://nlp.stanford.edu/projects/glove
     """
 
