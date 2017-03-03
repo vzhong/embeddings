@@ -23,12 +23,14 @@ In [4]: %timeit -n1 g.emb('canada')
 ## Usage
 
 ```python
-from embeddings import GloveEmbedding
+from embeddings import GloveEmbedding, FastTextEmbedding
 
-emb = GloveEmbedding('common_crawl_840', d_emb=300, show_progress=True)
+g = GloveEmbedding('common_crawl_840', d_emb=300, show_progress=True)
+f = FastTextEmbedding()
 for w in ['canada', 'vancouver', 'toronto']:
     print('embedding {}'.format(w))
-    print(emb.emb(w))
+    print(g.emb(w))
+    print(f.emb(w))
 ```
 
 ## Contribution
