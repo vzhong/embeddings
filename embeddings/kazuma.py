@@ -21,26 +21,22 @@ class KazumaCharEmbedding(Embedding):
     size = 874474
     d_emb = 100
 
-    def __init__(self, show_progress=True, default='none'):
+    def __init__(self, show_progress=True):
         """
 
         Args:
             show_progress: whether to print progress.
-            default: how to embed words that are out of vocabulary.
 
-        Note:
-            Default can use zeros, return None, or generate random between `[-0.1, 0.1]`.
         """
-        assert default in {'none', 'random', 'zero'}
 
         self.db = self.initialize_db(self.path('kazuma.db'))
-        self.default = default
 
         if len(self) < self.size:
             self.clear()
             self.load_word2emb(show_progress=show_progress)
 
-    def emb(self, w):
+    def emb(self, w, default='zero'):
+        assert default == 'zero', 'only zero default is supported for character embeddings'
         chars = ['#BEGIN#'] + list(w) + ['#END#']
         embs = np.zeros(self.d_emb, dtype=np.float32)
         match = {}
