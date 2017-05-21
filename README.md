@@ -19,6 +19,13 @@ In [4]: %timeit -n1 g.emb('canada')
 1 loop, best of 3: 38.2 µs per loop
 ```
 
+## Installation
+
+```bash
+pip install embeddings  # from pypi
+pip install git+https://github.com/vzhong/embeddings.git  # from github
+```
+
 
 ## Usage
 
