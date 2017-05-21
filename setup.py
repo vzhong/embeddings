@@ -16,7 +16,7 @@ setup(
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/vzhong/text',
+    url='https://github.com/vzhong/embeddings',
 
     # Author details
     author='Victor Zhong',
