@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='embeddings',
-    version='0.0.2',
+    version='0.0.3',
 
     description='Pretrained word embeddings in Python.',
     long_description=long_description,
@@ -55,7 +55,7 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=[],
+    install_requires=['tqdm', 'requests'],
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
