@@ -22,12 +22,12 @@ class FastTextEmbedding(Embedding):
         """
 
         Args:
-            lang: what language to use.
-            show_progress: whether to print progress.
-            default: how to embed words that are out of vocabulary.
+            lang (en): what language to use.
+            show_progress (bool): whether to print progress.
+            default (str): how to embed words that are out of vocabulary.
 
         Note:
-            Default can use zeros, return None, or generate random between `[-0.1, 0.1]`.
+            Default can use zeros, return ``None``, or generate random between ``[-0.1, 0.1]``.
         """
         assert default in {'none', 'random', 'zero'}
 

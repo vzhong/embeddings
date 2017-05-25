@@ -31,7 +31,7 @@ class GloveEmbedding(Embedding):
             name: name of the embedding to retrieve.
             d_emb: embedding dimensions.
             show_progress: whether to print progress.
-            default: how to embed words that are out of vocabulary. Can use zeros, return None, or generate random between `[-0.1, 0.1]`.
+            default: how to embed words that are out of vocabulary. Can use zeros, return ``None``, or generate random between ``[-0.1, 0.1]``.
         """
         assert name in self.settings, '{} is not a valid corpus. Valid options: {}'.format(name, self.settings)
         self.setting = self.settings[name]

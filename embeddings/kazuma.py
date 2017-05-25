@@ -9,6 +9,10 @@ from embeddings.embedding import Embedding
 
 
 def ngrams(sentence, n):
+    """
+    Returns:
+        list: a list of lists of words corresponding to the ngrams in the sentence.
+    """
     return [sentence[i:i+n] for i in range(len(sentence)-n+1)]
 
 

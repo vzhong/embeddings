@@ -12,10 +12,10 @@ class Embedding:
         """
 
         Args:
-            p: relative path.
+            p (str): relative path.
 
         Returns:
-            path: absolute path to the file, located in the `$EMBEDDINGS_ROOT` directory.
+            str: absolute path to the file, located in the ``$EMBEDDINGS_ROOT`` directory.
 
         """
         root = environ.get('EMBEDDINGS_ROOT', path.join(environ['HOME'], '.embeddings'))
@@ -24,17 +24,19 @@ class Embedding:
     @staticmethod
     def download_file(url, local_filename):
         """
+        Downloads a file from an url to a local file.
 
         Args:
-            url: url to download from.
-            local_filename: local file to download to.
+            url (str): url to download from.
+            local_filename (str): local file to download to.
 
         Returns:
             str: file name of the downloaded file.
 
         """
         r = requests.get(url, stream=True)
-        if not path.isdir(path.dirname(local_filename)):
+        if path.dirname(local_filename) and not path.isdir(path.dirname(local_filename)):
+            raise Exception(local_filename)
             makedirs(path.dirname(local_filename))
         with open(local_filename, 'wb') as f:
             for chunk in r.iter_content(chunk_size=1024):
@@ -45,13 +47,14 @@ class Embedding:
     @staticmethod
     def ensure_file(name, url=None, force=False, logger=logging.getLogger(), postprocess=None):
         """
+        Ensures that the file requested exists in the cache, downloading it if it does not exist.
 
         Args:
-            name: name of the file.
-            url: url to download the file from, if it doesn't exist.
-            force: whether to force the download, regardless of the existence of the file.
-            logger: logger to log results.
-            postprocess: a function that, if given, will be applied after the file is downloaded. The function has the signature `f(fname)`
+            name (str): name of the file.
+            url (str): url to download the file from, if it doesn't exist.
+            force (bool): whether to force the download, regardless of the existence of the file.
+            logger (logging.Logger): logger to log results.
+            postprocess (function): a function that, if given, will be applied after the file is downloaded. The function has the signature ``f(fname)``
 
         Returns:
             str: file name of the downloaded file.
@@ -73,13 +76,13 @@ class Embedding:
         """
 
         Args:
-            fname: location of the database.
+            fname (str): location of the database.
 
         Returns:
-            db: a SQLite3 database with an embeddings table.
+            db (sqlite3.Connection): a SQLite3 database with an embeddings table.
 
         """
-        if not path.isdir(path.dirname(fname)):
+        if path.dirname(fname) and not path.isdir(path.dirname(fname)):
             makedirs(path.dirname(fname))
         db = sqlite3.connect(fname)
         c = db.cursor()
@@ -91,7 +94,7 @@ class Embedding:
         """
 
         Returns:
-            count: number of embeddings in the database.
+            count (int): number of embeddings in the database.
 
         """
         c = self.db.cursor()
@@ -103,8 +106,19 @@ class Embedding:
         """
 
         Args:
-            batch: a list of embeddings to insert, each of which is a tuple `(word, embeddings)`.
+            batch (list): a list of embeddings to insert, each of which is a tuple ``(word, embeddings)``.
 
+        Example:
+
+        .. code-block:: python
+
+            e = Embedding()
+            e.db = e.initialize_db(self.e.path('mydb.db'))
+            e.insert_batch([
+                ('hello', [1, 2, 3]),
+                ('world', [2, 3, 4]),
+                ('!', [3, 4, 5]),
+            ])
         """
         c = self.db.cursor()
         binarized = [(word, array('f', emb).tobytes()) for word, emb in batch]
@@ -122,7 +136,7 @@ class Embedding:
             w: word to look up.
 
         Returns:
-            whether an embedding for `w` exists.
+            whether an embedding for ``w`` exists.
 
         """
         return self.lookup(w) is not None
@@ -144,8 +158,8 @@ class Embedding:
             w: word to look up.
 
         Returns:
-            embeddings for `w`, if it exists.
-            `None`, otherwise.
+            embeddings for ``w``, if it exists.
+            ``None``, otherwise.
 
         """
         c = self.db.cursor()
