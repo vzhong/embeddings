@@ -1,7 +1,3 @@
-import random
-from collections import namedtuple
-from os import path
-
 import tarfile
 import numpy as np
 from tqdm import tqdm
