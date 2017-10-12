@@ -6,15 +6,13 @@ import shutil
 
 class TestEmbeddings(unittest.TestCase):
 
-    hello_url = 'https://gist.githubusercontent.com/vzhong/c3b439bc165e6c93641bcc569c716c92/raw/87721005f4d9a0e80e9d023aeaf6136c6fee3a72/hello.txt'
+    hello_url = 'https://gist.githubusercontent.com/vzhong/61397d15cf60c0762bb2232c52c12fde/raw/58b644cf4bacb44315d24d481991060963553342/hello.txt'
 
     def setUp(self):
         self.root = os.environ['EMBEDDINGS_ROOT'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'test_root')
-        os.makedirs(self.root)
+        if not os.path.isdir(self.root):
+            os.makedirs(self.root)
         self.e = Embedding()
-
-    def tearDown(self):
-        shutil.rmtree(self.root)
 
     def test_path(self):
         self.assertEqual(os.path.join(self.root, 'foobar'), self.e.path('foobar'))
