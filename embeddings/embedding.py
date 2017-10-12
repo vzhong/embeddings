@@ -3,6 +3,7 @@ from os import path, makedirs, environ
 import requests
 import logging
 from array import array
+from io import StringIO
 
 
 class Embedding:
@@ -89,6 +90,20 @@ class Embedding:
         c.execute('create table if not exists embeddings(word text primary key, emb blob)')
         db.commit()
         return db
+
+    def load_memory(self):
+        # Read database to tempfile
+        tempfile = StringIO()
+        for line in self.db.iterdump():
+            tempfile.write('%s\n' % line)
+        self.db.close()
+        tempfile.seek(0)
+
+        # Create a database in memory and import from tempfile
+        self.db = sqlite3.connect(":memory:")
+        self.db.cursor().executescript(tempfile.read())
+        self.db.commit()
+        self.db.row_factory = sqlite3.Row
 
     def __len__(self):
         """
