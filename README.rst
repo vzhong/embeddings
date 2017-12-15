@@ -40,7 +40,7 @@ Usage
 Upon first use, the embeddings are first downloaded to disk in the form of a SQLite database.
 This may take a long time for large embeddings such as GloVe.
 Further usage of the embeddings are directly queried against the database.
-Embedding databases are stored in the ``$EMBEDDINGS_ROOT`` directory (defaults to ``~/.embeddings``).
+Embedding databases are stored in the ``$EMBEDDINGS_ROOT`` directory (defaults to ``~/.embeddings``). Note that this location is probably **undesirable** if your home directory is on NFS, as it would slow down database queries significantly.
 
 
 .. code-block:: python
