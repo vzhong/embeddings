@@ -43,7 +43,7 @@ class TestEmbeddings(unittest.TestCase):
         self.assertFalse('worlds' in self.e)
         self.assertEqual(3, len(self.e))
         self.assertListEqual([2, 3, 4], self.e.lookup('world'))
-        
+
 
 if __name__ == '__main__':
     unittest.main()
