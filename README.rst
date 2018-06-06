@@ -62,8 +62,14 @@ Embedding databases are stored in the ``$EMBEDDINGS_ROOT`` directory (defaults t
 Docker
 ------
 
-If you use Docker, an image prepopulated with the Common Crawl 840 GlVe embeddings and Kazuma Hashimoto's character ngram embeddings is available at `vzhong/embeddings <https://hub.docker.com/r/vzhong/embeddings>`_.
+If you use Docker, an image prepopulated with the Common Crawl 840 GloVe embeddings and Kazuma Hashimoto's character ngram embeddings is available at `vzhong/embeddings <https://hub.docker.com/r/vzhong/embeddings>`_.
 You mount volumes from this container set ``$EMBEDDINGS_ROOT`` in your container to ``/opt/embeddings``.
+
+For example:
+
+.. code-block:: bash
+
+    docker run --volumes-from vzhong/embeddings -e EMBEDDINGS_ROOT='/opt/embeddings' myimage python train.py
 
 
 Contribution
