@@ -1,0 +1,8 @@
+.*
+bin/
+docks/
+dist/
+*.egg-info/
+Dockerfile
+LICENSE
+*.in

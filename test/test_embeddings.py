@@ -1,7 +1,6 @@
 from embeddings.embedding import Embedding
 import unittest
 import os
-import shutil
 
 
 class TestEmbeddings(unittest.TestCase):
@@ -13,6 +12,11 @@ class TestEmbeddings(unittest.TestCase):
         if not os.path.isdir(self.root):
             os.makedirs(self.root)
         self.e = Embedding()
+
+    def tearDown(self):
+        fdb = self.e.path('mydb.db')
+        if os.path.isfile(fdb):
+            os.remove(fdb)
 
     def test_path(self):
         self.assertEqual(os.path.join(self.root, 'foobar'), self.e.path('foobar'))

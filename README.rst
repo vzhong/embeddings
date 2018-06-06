@@ -59,6 +59,13 @@ Embedding databases are stored in the ``$EMBEDDINGS_ROOT`` directory (defaults t
         print(c.emb(w))
 
 
+Docker
+------
+
+If you use Docker, an image prepopulated with the Common Crawl 840 GlVe embeddings and Kazuma Hashimoto's character ngram embeddings is available at [`vzhong/embeddings`](https://hub.docker.com/r/vzhong/embeddings).
+You mount volumes from this container set `$EMBEDDINGS_ROOT` in your container to `/opt/embeddings`.
+
+
 Contribution
 ------------
 

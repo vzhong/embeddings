@@ -1,3 +1,4 @@
+__version__ = '0.0.5'
 from embeddings.glove import GloveEmbedding
 from embeddings.fasttext import FastTextEmbedding
 from embeddings.kazuma import KazumaCharEmbedding
