@@ -14,10 +14,10 @@ def ngrams(sentence, n):
 
 class KazumaCharEmbedding(Embedding):
     """
-    Reference: http://www.logos.t.u-tokyo.ac.jp/~hassy/publications/arxiv2016jmt/
+    Reference: https://www.logos.t.u-tokyo.ac.jp/~hassy/publications/arxiv2016jmt/
     """
 
-    url = 'http://www.logos.t.u-tokyo.ac.jp/~hassy/publications/arxiv2016jmt/jmt_pre-trained_embeddings.tar.gz'
+    url = 'https://www.logos.t.u-tokyo.ac.jp/~hassy/publications/arxiv2016jmt/jmt_pre-trained_embeddings.tar.gz'
     size = 874474
     d_emb = 100
 

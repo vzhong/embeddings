@@ -35,7 +35,7 @@ class Embedding:
             str: file name of the downloaded file.
 
         """
-        r = requests.get(url, stream=True)
+        r = requests.get(url, stream=True, verify=False)
         if path.dirname(local_filename) and not path.isdir(path.dirname(local_filename)):
             raise Exception(local_filename)
             makedirs(path.dirname(local_filename))
