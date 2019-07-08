@@ -10,7 +10,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='embeddings',
-    version='0.0.6',
+    version='0.0.7',
 
     description='Pretrained word embeddings in Python.',
     long_description=long_description,
