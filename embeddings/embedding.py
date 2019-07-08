@@ -85,10 +85,10 @@ class Embedding:
         """
         if path.dirname(fname) and not path.isdir(path.dirname(fname)):
             makedirs(path.dirname(fname))
-        db = sqlite3.connect(fname)
+        # open database in autocommit mode by setting isolation_level to None.
+        db = sqlite3.connect(fname, isolation_level=None)
         c = db.cursor()
         c.execute('create table if not exists embeddings(word text primary key, emb blob)')
-        db.commit()
         return db
 
     def load_memory(self):
@@ -100,9 +100,9 @@ class Embedding:
         tempfile.seek(0)
 
         # Create a database in memory and import from tempfile
-        self.db = sqlite3.connect(":memory:")
+        # open database in autocommit mode by setting isolation_level to None.
+        self.db = sqlite3.connect(":memory:", isolation_level=None)
         self.db.cursor().executescript(tempfile.read())
-        self.db.commit()
         self.db.row_factory = sqlite3.Row
 
     def __len__(self):
@@ -114,7 +114,6 @@ class Embedding:
         """
         c = self.db.cursor()
         q = c.execute('select count(*) from embeddings')
-        self.db.commit()
         return q.fetchone()[0]
 
     def insert_batch(self, batch):
@@ -139,7 +138,6 @@ class Embedding:
         binarized = [(word, array('f', emb).tobytes()) for word, emb in batch]
         try:
             c.executemany("insert into embeddings values (?, ?)", binarized)
-            self.db.commit()
         except Exception as e:
             print('insert failed\n{}'.format([w for w, e in batch]))
             raise e
@@ -164,7 +162,6 @@ class Embedding:
         """
         c = self.db.cursor()
         c.execute('delete from embeddings')
-        self.db.commit()
 
     def lookup(self, w):
         """
