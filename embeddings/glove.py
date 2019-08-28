@@ -61,27 +61,25 @@ class GloveEmbedding(Embedding):
     def load_word2emb(self, show_progress=True, batch_size=1000):
         fin_name = self.ensure_file(path.join('glove', '{}.zip'.format(self.name)), url=self.setting.url)
         seen = set()
-
         with zipfile.ZipFile(fin_name) as fin:
             fname_zipped = [fzipped.filename for fzipped in fin.filelist if str(self.d_emb) in fzipped.filename][0]
-            content = fin.read(fname_zipped)
-            lines = content.splitlines()
-            if show_progress:
-                lines = tqdm(lines, total=self.setting.size)
-            batch = []
-            for line in lines:
-                elems = line.decode().rstrip().split()
-                vec = [float(n) for n in elems[-self.d_emb:]]
-                word = ' '.join(elems[:-self.d_emb])
-                if word in seen:
-                    continue
-                seen.add(word)
-                batch.append((word, vec))
-                if len(batch) == batch_size:
+            with fin.open(fname_zipped, 'r') as fin_zipped:
+                batch = []
+                if show_progress:
+                    fin_zipped = tqdm(fin_zipped, total=self.setting.size)
+                for line in fin_zipped:
+                    elems = line.decode().rstrip().split()
+                    vec = [float(n) for n in elems[-self.d_emb:]]
+                    word = ' '.join(elems[:-self.d_emb])
+                    if word in seen:
+                        continue
+                    seen.add(word)
+                    batch.append((word, vec))
+                    if len(batch) == batch_size:
+                        self.insert_batch(batch)
+                        batch.clear()
+                if batch:
                     self.insert_batch(batch)
-                    batch.clear()
-            if batch:
-                self.insert_batch(batch)
 
 
 if __name__ == '__main__':
