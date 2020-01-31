@@ -24,7 +24,7 @@ class GloveEmbedding(Embedding):
                                            [50, 100, 200, 300], 400000, '6B token wikipedia 2014 + gigaword 5'),
     }
 
-    def __init__(self, name='common_crawl_840', d_emb=300, show_progress=True, default='none'):
+    def __init__(self, name='common_crawl_840', d_emb=300, show_progress=True, default='none', check_same_thread=True):
         """
 
         Args:
@@ -40,7 +40,7 @@ class GloveEmbedding(Embedding):
 
         self.d_emb = d_emb
         self.name = name
-        self.db = self.initialize_db(self.path(path.join('glove', '{}:{}.db'.format(name, d_emb))))
+        self.db = self.initialize_db(self.path(path.join('glove', '{}:{}.db'.format(name, d_emb))), check_same_thread=check_same_thread)
         self.default = default
 
         if len(self) < self.setting.size:

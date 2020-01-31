@@ -18,7 +18,7 @@ class FastTextEmbedding(Embedding):
     }
     d_emb = 300
 
-    def __init__(self, lang='en', show_progress=True, default='none'):
+    def __init__(self, lang='en', show_progress=True, default='none', check_same_thread=True):
         """
 
         Args:
@@ -32,7 +32,7 @@ class FastTextEmbedding(Embedding):
         assert default in {'none', 'random', 'zero'}
 
         self.lang = lang
-        self.db = self.initialize_db(self.path(path.join('fasttext', '{}.db'.format(lang))))
+        self.db = self.initialize_db(self.path(path.join('fasttext', '{}.db'.format(lang))), check_same_thread=check_same_thread)
         self.default = default
 
         if len(self) < self.sizes[self.lang]:

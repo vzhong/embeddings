@@ -48,6 +48,24 @@ class TestEmbeddings(unittest.TestCase):
         self.assertEqual(3, len(self.e))
         self.assertListEqual([2, 3, 4], self.e.lookup('world'))
 
+    def test_insert_add_option(self):
+        self.e.db = self.e.initialize_db(self.e.path('mydb.db'), check_same_thread=False)
+        self.e.insert_batch([
+            ('hello', [1, 2, 3]),
+            ('world', [2, 3, 4]),
+            ('!', [3, 4, 5]),
+            ('hey', [7, 8, 9]),
+        ])
+
+        self.assertTrue('world' in self.e)
+        self.assertFalse('worlds' in self.e)
+        self.assertTrue('hey' in self.e)
+        self.assertEqual(4, len(self.e))
+        self.assertListEqual([2, 3, 4], self.e.lookup('world'))
+        self.assertListEqual([7, 8, 9], self.e.lookup('hey'))
+
+
+
 
 if __name__ == '__main__':
     unittest.main()

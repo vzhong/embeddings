@@ -21,7 +21,7 @@ class KazumaCharEmbedding(Embedding):
     size = 874474
     d_emb = 100
 
-    def __init__(self, show_progress=True):
+    def __init__(self, show_progress=True, check_same_thread=True):
         """
 
         Args:
@@ -29,7 +29,7 @@ class KazumaCharEmbedding(Embedding):
 
         """
 
-        self.db = self.initialize_db(self.path('kazuma.db'))
+        self.db = self.initialize_db(self.path('kazuma.db'), check_same_thread)
 
         if len(self) < self.size:
             self.clear()

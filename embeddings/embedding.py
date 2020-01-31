@@ -73,7 +73,7 @@ class Embedding:
         return fname
 
     @staticmethod
-    def initialize_db(fname):
+    def initialize_db(fname, check_same_thread=True):
         """
 
         Args:
@@ -86,7 +86,7 @@ class Embedding:
         if path.dirname(fname) and not path.isdir(path.dirname(fname)):
             makedirs(path.dirname(fname))
         # open database in autocommit mode by setting isolation_level to None.
-        db = sqlite3.connect(fname, isolation_level=None)
+        db = sqlite3.connect(fname, isolation_level=None, check_same_thread=check_same_thread)
         c = db.cursor()
         c.execute('create table if not exists embeddings(word text primary key, emb blob)')
         return db
