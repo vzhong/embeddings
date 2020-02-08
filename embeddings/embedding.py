@@ -137,7 +137,9 @@ class Embedding:
         c = self.db.cursor()
         binarized = [(word, array('f', emb).tobytes()) for word, emb in batch]
         try:
+            c.execute("BEGIN TRANSACTION;")
             c.executemany("insert into embeddings values (?, ?)", binarized)
+            c.execute("COMMIT;")
         except Exception as e:
             print('insert failed\n{}'.format([w for w, e in batch]))
             raise e
