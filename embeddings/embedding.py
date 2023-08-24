@@ -19,7 +19,12 @@ class Embedding:
             str: absolute path to the file, located in the ``$EMBEDDINGS_ROOT`` directory.
 
         """
-        root = environ.get('EMBEDDINGS_ROOT', path.join(environ['HOME'], '.embeddings'))
+        root = environ.get('EMBEDDINGS_ROOT') 
+        if not root:
+            root = environ.get('HOME') or environ.get('USERPROFILE')
+            if not root:
+                raise KeyError(f"Must set either EMBEDDINGS_ROOT or HOME as an environment variable to create embeddings database")
+            root = path.join(root, '.embeddings')
         return path.join(path.abspath(root), p)
 
     @staticmethod
