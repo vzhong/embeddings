@@ -14,13 +14,13 @@ class GloveEmbedding(Embedding):
 
     GloveSetting = namedtuple('GloveSetting', ['url', 'd_embs', 'size', 'description'])
     settings = {
-        'common_crawl_48': GloveSetting('http://nlp.stanford.edu/data/glove.42B.300d.zip',
+        'common_crawl_48': GloveSetting('https://huggingface.co/stanfordnlp/glove/resolve/main/glove.42B.300d.zip',
                                         [300], 1917494, '48B token common crawl'),
-        'common_crawl_840': GloveSetting('http://nlp.stanford.edu/data/glove.840B.300d.zip',
+        'common_crawl_840': GloveSetting('https://huggingface.co/stanfordnlp/glove/resolve/main/glove.840B.300d.zip',
                                          [300], 2195895, '840B token common crawl'),
-        'twitter': GloveSetting('http://nlp.stanford.edu/data/glove.twitter.27B.zip',
+        'twitter': GloveSetting('https://huggingface.co/stanfordnlp/glove/resolve/main/glove.twitter.27B.zip',
                                 [25, 50, 100, 200], 1193514, '27B token twitter'),
-        'wikipedia_gigaword': GloveSetting('http://nlp.stanford.edu/data/glove.6B.zip',
+        'wikipedia_gigaword': GloveSetting('https://huggingface.co/stanfordnlp/glove/resolve/main/glove.6B.zip',
                                            [50, 100, 200, 300], 400000, '6B token wikipedia 2014 + gigaword 5'),
     }
 
