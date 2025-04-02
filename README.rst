@@ -9,6 +9,8 @@ Embeddings
 
 Embeddings is a python package that provides pretrained word embeddings for natural language processing and machine learning.
 
+NOTE: there are several people looking to take over the pip `embeddings` package on Pypi for their own project. As a result, please install from github instead.
+
 Instead of loading a large file to query for embeddings, ``embeddings`` is backed by a database and fast to load and query:
 
 .. code-block:: python
@@ -30,7 +32,6 @@ Installation
 
 .. code-block:: sh
 
-    pip install embeddings  # from pypi
     pip install git+https://github.com/vzhong/embeddings.git  # from github
 
 
